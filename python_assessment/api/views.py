@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from django.http import JsonResponse
+from rest_framework.generics import GenericAPIView
 import json
 # Create your views here.
 
@@ -19,7 +20,16 @@ class ListTicket(APIView):
         Return a list of all users.
         """
         tickets = json.loads(open('ticket.json').read())
-        print(tickets["tickets"])
-        return JsonResponse({"ok":"ok"})
+        return JsonResponse({"tickets":tickets["tickets"]})
 
 
+class ListUniqueTags(APIView):
+
+
+    def post(self, request, *args, **kwargs):
+        tickets = json.loads(open('ticket.json').read())
+        tags=[]
+        for ticket in tickets["tickets"]:
+            tags.extend(ticket["tags"])
+
+        return JsonResponse({"tags":list(set(tags))})
