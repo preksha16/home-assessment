@@ -13,7 +13,9 @@ class ListTicket(APIView):
         return JsonResponse({"tickets":tickets["tickets"]})
 
     def post(self, request, format=None): #To receive tickets with post method
-
+        # To use pagination first we need to load json data into databse table
+        # Then we can create serializers for pagination.
+        
         tickets = json.loads(open('ticket.json').read())
         return JsonResponse({"tickets":tickets["tickets"]})
 
