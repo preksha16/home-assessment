@@ -6,24 +6,19 @@ import json
 # Create your views here.
 
 class ListTicket(APIView):
-    """
-    View to list all users in the system.
 
-    * Requires token authentication.
-    * Only admin users are able to access this view.
-    """
-    # authentication_classes = [authentication.TokenAuthentication]
-    # permission_classes = [permissions.IsAdminUser]
+    def get(self, request, format=None): #To receive tickets with get method
 
-    def get(self, request, format=None):
-        """
-        Return a list of all users.
-        """
+        tickets = json.loads(open('ticket.json').read())
+        return JsonResponse({"tickets":tickets["tickets"]})
+
+    def post(self, request, format=None): #To receive tickets with post method
+
         tickets = json.loads(open('ticket.json').read())
         return JsonResponse({"tickets":tickets["tickets"]})
 
 
-class ListUniqueTags(APIView):
+class ListUniqueTags(APIView): # It will return list of unique tags
 
 
     def post(self, request, *args, **kwargs):
